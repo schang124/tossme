@@ -52,11 +52,6 @@
               <item name="tossme" type="b2602c69:ProjectViewProjectNode" />
               <item name="tossme" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="tossme" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tossme" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -91,12 +86,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1513609567560</updated>
-      <workItem from="1513609569673" duration="698000" />
+      <workItem from="1513609569673" duration="883000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="698000" />
+    <option name="totallyTimeSpent" value="883000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="2560" height="1364" extended-state="6" />
