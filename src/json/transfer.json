@@ -1,0 +1,51 @@
+{
+  "amount": {
+    "current": 0,
+    "limit": {
+      "daily": 500000,
+      "remain": 100000
+    }
+  },
+  "mine": {
+    "id": "a",
+    "name": "홍길동",
+    "contact": {
+      "cellphone": "01000000000"
+    },
+    "accounts": [
+      {
+        "corporation": {
+          "id": "kb",
+          "name": "kb국민은행"
+        },
+        "account": "46480000084347",
+        "deposit": {
+          "amount": 87084,
+          "currency": "원"
+        },
+        "validate": {
+          "true": "무료송금 4회 남음(월 5회)",
+          "false": "토스 계좌를 채우고,무료로 송금하세요"
+        },
+        "fee" : 500
+      },
+      {
+        "corporation": {
+          "id": "toss",
+          "name": "주계좌"
+        },
+        "account": "",
+        "deposit": {
+          "amount": 141000,
+          "currency": "원"
+        },
+        "validate": {
+          "true": "",
+          "false": "토스 계좌를 채우고,무료로 송금하세요"
+        },
+        "fee": 0
+      }
+    ]
+
+  }
+}
