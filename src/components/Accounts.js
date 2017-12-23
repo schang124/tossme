@@ -58,7 +58,6 @@ function Accounts({ mine, accountIndex, accountMove, wrapperWidth, listWidth, mo
         }
 
         if(movable){
-            const { deltaX } = e;
             position = listWidth * nextAccountIndex * -1;
             setAccontIndex(nextAccountIndex);
         }
