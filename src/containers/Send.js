@@ -3,13 +3,6 @@ import styled from 'styled-components';
 import { TopBar, SendContent } from '../components';
 
 class Send extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            key: 'value',
-        }
-    }
-
     componentDidMount(){
 
     }

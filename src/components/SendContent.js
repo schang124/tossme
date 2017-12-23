@@ -2,25 +2,54 @@ import React from 'react';
 import styled from 'styled-components';
 import sendContent from '../modules/sendContent';
 
+import { Amount, Accounts, ButtonSend } from '../components';
+import NumUtil from '../utils/num';
+import transfer from '../json/transfer.json';
+
 class SendContent extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            amount: {},
+            mine: {
+                accounts: [],
+            },
             listWidth: '300px',
             wrapperWidth: '300px',
-            listLength: 2,
+            listLength: 0,
+            accountMsg: '',
+            tossAmount: 0,
         };
 
         this.setWidth = this.setWidth.bind(this);
+        this.handleAmountChange = this.handleAmountChange.bind(this);
     }
 
     componentDidMount(){
+        // fetch
+        this.fetch(transfer);
+
+        // ui
         this.setWidth(this.state.listLength);
-        window.addEventListener('resize', this.setWidth);
+        window.addEventListener('resize', this.setWidth, false);
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        const { listLength } = this.state;
+        const listUpdated = listLength !== prevState.listLength;
+        if(listUpdated) this.setWidth(listLength);
     }
 
     componentWillUnmount(){
         window.removeEventListener('resize', this.setWidth);
+    }
+
+    fetch(json){
+        const amount        = json.amount;
+        const mine          = json.mine;
+        const listLength    = mine.accounts.length;
+        const accountMsg    = mine.accounts[0].validate.msg;
+        this.setState({ amount, mine, listLength, accountMsg });
     }
 
     setWidth(){
@@ -31,43 +60,31 @@ class SendContent extends React.Component{
         });
     }
 
+    handleAmountChange(e){
+        const { currency } = this.state.amount;
+        const t = e.target;
+        const value = NumUtil.removeComma(t.value.replace(currency, ''))
+        this.setState({
+            [t.name]: value
+        })
+    }
+
     render(){
-        const {listWidth, wrapperWidth} = this.state;
+        const { amount, mine, listWidth, wrapperWidth, tossAmount, accountMsg } = this.state;
+
         return (
             <Content>
-                <Amount>
-                    <Wrapper>
-                        <Title>보낼 금액</Title>
-                        <Input type="text"/>
-                    </Wrapper>
-                </Amount>
-                <Account>
-                    <Wrapper>
-                        <Title>출금계좌</Title>
-                    </Wrapper>
-                    <AccountContainer>
-                        <AccountWrapper w={wrapperWidth}>
-                            <AccountList w={listWidth}>
-                                <AccountContent>
-                                    <AccountTitle>Toss 주계좌</AccountTitle>
-                                    <AccountAmount>142,000원</AccountAmount>
-                                </AccountContent>
-                            </AccountList>
-                            <AccountList w={listWidth}>
-                                <AccountContent>
-                                    <AccountTitle>Toss 주계좌</AccountTitle>
-                                    <AccountAmount>142,000원</AccountAmount>
-                                </AccountContent>
-                            </AccountList>
-                        </AccountWrapper>
-                    </AccountContainer>
-                    <Indicator>
-                        <IndicatorWrapper>
-                            <IndicatorList />
-                            <IndicatorList />
-                        </IndicatorWrapper>
-                    </Indicator>
-                </Account>
+                <Amount
+                    amount={amount}
+                    tossAmount={tossAmount}
+                    handleAmountChange={this.handleAmountChange}
+                />
+                <Accounts
+                    mine={mine}
+                    wrapperWidth={wrapperWidth}
+                    listWidth={listWidth}
+                />
+                <ButtonSend accountMsg={accountMsg} />
             </Content>
         );
     }
@@ -75,105 +92,7 @@ class SendContent extends React.Component{
 
 export default SendContent
 
-const side = '25px';
 
 const Content = styled.section`
     position: relative;
-`;
-
-const Wrapper = styled.div`
-    margin: 0 ${side};
-`;
-
-const Amount = styled.div`
-    padding-top: 54px;     
-`;
-
-const Title = styled.h1`
-    font-size: 12px;
-    color: white;
-    opacity: 0.5;
-`;
-
-const Input = styled.input.attrs({
-    className: 'w300',
-})`
-    width: 100%;
-    height: 32px;
-    font-size: 16px;
-    color: white;
-    background: transparent;
-    border: 0;
-    outline: 0; 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-`;
-
-// Account
-const accountHeight = '72px';
-const accountPadding = '22px';
-const Account = styled.div`
-    margin-top: 30px;
-`;
-
-const AccountContainer = styled.div`
-    margin-top: 8px;
-    width: 100%;
-    overflow-x: hidden;
-`;
-
-const AccountWrapper = styled.ul`
-    padding: 0 ${accountPadding};
-    width: ${props => props.w ? props.w : '100%'};
-`;
-
-const AccountList = styled.li`
-    display: inline-block;
-    padding: 0 3px;
-    width: ${props => props.w ? props.w : '80%'};
-    box-sizing: border-box;
-`;
-
-const AccountContent = styled.div`
-    padding-left: 14px;
-    padding-top: 18px;
-    height: ${accountHeight};
-    background-color: #567ef3;
-    box-sizing: border-box;
-`;
-
-const AccountTitle = styled.h1`
-    font-size: 14px;
-    color: white;
-`;
-
-const AccountAmount = styled.b`
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
-`;
-
-// Indicator
-const indiSize = '7px';
-const indiColor = '#54bea9';
-
-const Indicator = styled.div`
-    margin-top: 11px;
-    font-size: 0;
-    text-align: center;
-`;
-
-const IndicatorWrapper = styled.ul`
-    display: inline-block;
-`;
-
-const IndicatorList = styled.li`
-    display: inline-block;
-    margin: 0 4px;
-    width: ${indiSize};
-    height: ${indiSize};
-    border: 1px solid ${indiColor};
-    box-sizing: border-box;
-    border-radius: ${indiSize};
-    background ${ props => props.active ? indiColor : 'transparent' }
 `;

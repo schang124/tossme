@@ -1,6 +1,7 @@
 {
   "amount": {
     "current": 0,
+    "currency": "원",
     "limit": {
       "daily": 500000,
       "remain": 100000
@@ -16,7 +17,7 @@
       {
         "corporation": {
           "id": "kb",
-          "name": "kb국민은행"
+          "name": "KB국민은행"
         },
         "account": "46480000084347",
         "deposit": {
@@ -24,15 +25,15 @@
           "currency": "원"
         },
         "validate": {
-          "true": "무료송금 4회 남음(월 5회)",
-          "false": "토스 계좌를 채우고,무료로 송금하세요"
+          "isValid": true,
+          "msg": "무료송금 4회 남음(월 5회)"
         },
         "fee" : 500
       },
       {
         "corporation": {
           "id": "toss",
-          "name": "주계좌"
+          "name": "Toss 주계좌"
         },
         "account": "",
         "deposit": {
@@ -40,8 +41,8 @@
           "currency": "원"
         },
         "validate": {
-          "true": "",
-          "false": "토스 계좌를 채우고,무료로 송금하세요"
+          "isValid": true,
+          "msg": "토스 계좌를 채우고,무료로 송금하세요"
         },
         "fee": 0
       }

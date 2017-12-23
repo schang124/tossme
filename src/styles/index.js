@@ -79,5 +79,6 @@ export default () => injectGlobal`
         cursor: pointer;
         background-color: transparent;
         border: 0;
+        outline: 0;
     }
 `

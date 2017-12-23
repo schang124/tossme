@@ -12,8 +12,8 @@ export default class sendContent{
 
     static getWidth(len){
         return {
-            list:       `${sendContent.getListWidth()}px`,
-            wrapper:    `${sendContent.getWrapperWidth(len)}px`,
+            list:       sendContent.getListWidth(),
+            wrapper:    sendContent.getWrapperWidth(len),
         }
     }
 }
