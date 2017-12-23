@@ -1,17 +1,23 @@
 import React from 'react';
 import styled from 'styled-components'
 import Icon from '../media/ic_close.png';
+import { withRouter } from 'react-router-dom';
 
-function TopBar(){
+function TopBar({ history }){
+
+    function handleClick(){
+        history.goBack();
+    }
+
     return (
         <TossTopBar>
-            <Button><IconClose src={Icon} /></Button>
+            <Button onClick={handleClick}><IconClose src={Icon} /></Button>
             <Title>송금하기</Title>
         </TossTopBar>
     );
 }
 
-export default TopBar
+export default withRouter(TopBar)
 
 const topbarHeight = '46px';
 const TossTopBar = styled.section`

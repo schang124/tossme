@@ -1,21 +1,28 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components';
 
-function ButtonSend({ mine, tossAmount, accountIndex, send }){
+function ButtonTransfer({ mine, tossAmount, accountIndex, send, history }){
     const account = mine.accounts[accountIndex];
     if(!account) return null;
     const valid = account.deposit.amount > 0 && tossAmount > 0;
+
+    function handleClick(){
+        send();
+        history.push('/');
+    }
+
     return (
         <ButtonContainer>
             <ButtonWrapper>
                 <Message dangerouslySetInnerHTML={{ __html: account.validate.msg }}></Message>
-                <ButtonToss valid={valid} onClick={send} disabled={!valid}>보내기</ButtonToss>
+                <ButtonToss valid={valid} onClick={handleClick} disabled={!valid}>보내기</ButtonToss>
             </ButtonWrapper>
         </ButtonContainer>
     );
 }
 
-export default ButtonSend
+export default withRouter(ButtonTransfer)
 
 // ButtonSend
 const messageHeight = '25px';
@@ -60,5 +67,6 @@ const ButtonToss = styled.button`
     height: ${buttonSendHeight};
     font-size: 16px;
     color: ${props => props.valid ? '#376ad2' : '#CCC'};
-    background-color: ${props => props.valid ? 'white' : '#e0e0e0'};
+    background: ${props => props.valid ? 'white' : '#e0e0e0'};
+    transition background 0.4s ease-in-out, color 0.4s ease-in-out;
 `;

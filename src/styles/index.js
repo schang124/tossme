@@ -59,4 +59,8 @@ export default () => injectGlobal`
         padding: 0;
         border-radius: 0;
     }
+    
+    a{
+        text-decoration: none;
+    }
 `

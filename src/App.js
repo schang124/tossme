@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './utils/history';
+
+import { Home, Transfer } from './containers';
+
 import styled from 'styled-components';
-import { Send } from './containers';
 
 class App extends Component {
 
     render() {
         return (
-            <Toss>
-                <Send />
-            </Toss>
+            <Router history={history}>
+                <Toss>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/transfer" component={Transfer} />
+                </Toss>
+            </Router>
         );
     }
 }
