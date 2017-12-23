@@ -1,41 +1,95 @@
 import React from 'react';
 import styled from 'styled-components';
+import Hammer from 'rc-hammerjs';
 
 import { Wrapper, Title } from '../styles/sendContent';
 import NumUtil from '../utils/num';
+import sendContent from '../modules/sendContent';
 
-function Accounts({ mine, wrapperWidth, listWidth }){
+let moved = 0,
+    position = 0,
+    nextAccountIndex = 0;
+
+function Accounts({ mine, accountIndex, accountMove, wrapperWidth, listWidth, move, setAccontIndex }){
     const myAccounts = mine.accounts.map((a, i)=>{
-        const {corporation, account, deposit, validate, fee} = a;
+        const { corporation, deposit, account } = a;
+        const active = accountIndex === i;
+        const context = corporation.id === 'toss' 
+            ? `${NumUtil.addComma(deposit.amount)}${deposit.currency}`
+            : `${corporation.shortName} ${sendContent.getEncodedAccount(account)}`;
         return(
             <AccountList w={listWidth} key={`corporation.id-${i}`}>
-                <AccountContent>
+                <AccountContent active={active}>
                     <AccountTitle>{corporation.name}</AccountTitle>
-                    <AccountAmount>{`${NumUtil.addComma(deposit.amount)}${deposit.currency}`}</AccountAmount>
+                    <AccountContext>{context}</AccountContext>
                 </AccountContent>
             </AccountList>
         )
     });
+
+    const indicators = mine.accounts.map((ai, i)=> {
+        const active = accountIndex === i;
+        return <IndicatorList key={`indi-${i}`}active={active} />;
+    });
+
+    function handlePan(e){
+        const { deltaX, distance} = e;
+        moved = parseInt(distance, 10);
+
+        if(moved < listWidth){
+            move(deltaX);
+        }
+    }
+
+    function handlePanEnd(e){
+        const { deltaX } = e;
+        const moveNext = deltaX < 0;
+        const movable = moved > listWidth / 4;
+        if(movable){
+            if(moveNext) nextAccountIndex++;
+            else nextAccountIndex--;
+        }
+        
+        if(nextAccountIndex < 0 || nextAccountIndex > mine.accounts.length -1){
+            move(position);
+            if(moveNext) nextAccountIndex--;
+            else nextAccountIndex++;
+            return;
+        }
+
+        if(movable){
+            const { deltaX } = e;
+            position = listWidth * nextAccountIndex * -1;
+            setAccontIndex(nextAccountIndex);
+        }
+
+        move(position);
+        moved = 0;
+    }
 
     return (
         <Account>
             <Wrapper>
                 <Title>출금계좌</Title>
             </Wrapper>
-            <AccountContainer>
-                <AccountWrapper w={wrapperWidth} left={0}>
-                    {myAccounts}
-                </AccountWrapper>
-            </AccountContainer>
+            <Hammer
+                onPan={handlePan}
+                onPanEnd={handlePanEnd}
+            >
+                <AccountContainer>
+                    <AccountWrapper w={wrapperWidth} left={accountMove}>
+                        {myAccounts}
+                    </AccountWrapper>
+                </AccountContainer>
+            </Hammer>
             <Indicator>
                 <IndicatorWrapper>
-                    <IndicatorList />
-                    <IndicatorList />
+                    {indicators}
                 </IndicatorWrapper>
             </Indicator>
         </Account>
     );
-};
+}
 
 export default Accounts
 
@@ -52,10 +106,13 @@ const AccountContainer = styled.div`
     overflow-x: hidden;
 `;
 
-const AccountWrapper = styled.ul`
-    margin-left: ${props => props.left ? `${props.left}px` : 0};
+const AccountWrapper = styled.ul.attrs({
+    style: ({ left }) => ({ left }),
+})`
+    position: relative;
     padding: 0 ${accountPadding};
     width: ${props => props.w ? `${props.w}px` : '100%'};
+    transition: left 0.6s ease-in-out;
 `;
 
 const AccountList = styled.li`
@@ -71,6 +128,8 @@ const AccountContent = styled.div`
     height: ${accountHeight};
     background-color: #567ef3;
     box-sizing: border-box;
+    opacity: ${props => props.active ? 1 : 0.5};
+    transition: opacity 0.6s ease-in-out;
 `;
 
 const AccountTitle = styled.h1`
@@ -78,11 +137,11 @@ const AccountTitle = styled.h1`
     color: white;
 `;
 
-const AccountAmount = styled.b`
+const AccountContext = styled.b`
     display: inline-block;
     margin-top: 8px;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
 `;
 
 // Indicator

@@ -30,7 +30,7 @@ const Title = styled.h1`
 const Button = styled.button`
     position: absolute;
     top: 0;
-    left: 0;
+    left: 5px;
     margin: 0;
     padding: 0;
     width: ${topbarHeight};

@@ -12,7 +12,7 @@ function Amount({ amount, tossAmount, handleAmountChange }){
                 <InputBox>
                     <Input
                         name='tossAmount'
-                        value={tossAmount}
+                        value={NumUtil.addComma(tossAmount)}
                         type="text"
                         onChange={handleAmountChange}
                     />
@@ -33,6 +33,7 @@ const TossAmount = styled.div`
 
 const InputBox = styled.div`
     position: relative;
+    font-size: 0;
 `;
 
 const Input = styled.input.attrs({

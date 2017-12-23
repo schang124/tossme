@@ -17,12 +17,16 @@ class SendContent extends React.Component{
             listWidth: '300px',
             wrapperWidth: '300px',
             listLength: 0,
-            accountMsg: '',
+            accountMove: 0,
+            accountIndex: 0,
             tossAmount: 0,
         };
 
-        this.setWidth = this.setWidth.bind(this);
         this.handleAmountChange = this.handleAmountChange.bind(this);
+        this.setWidth = this.setWidth.bind(this);
+        this.setAccontIndex = this.setAccontIndex.bind(this);
+        this.move = this.move.bind(this);
+        this.send = this.send.bind(this);
     }
 
     componentDidMount(){
@@ -37,7 +41,7 @@ class SendContent extends React.Component{
     componentDidUpdate(prevProps, prevState){
         const { listLength } = this.state;
         const listUpdated = listLength !== prevState.listLength;
-        if(listUpdated) this.setWidth(listLength);
+        if(listUpdated) this.setWidth();
     }
 
     componentWillUnmount(){
@@ -48,29 +52,58 @@ class SendContent extends React.Component{
         const amount        = json.amount;
         const mine          = json.mine;
         const listLength    = mine.accounts.length;
-        const accountMsg    = mine.accounts[0].validate.msg;
-        this.setState({ amount, mine, listLength, accountMsg });
-    }
-
-    setWidth(){
-        const width = sendContent.getWidth(this.state.listLength);
-        this.setState({
-            listWidth: width.list,
-            wrapperWidth : width.wrapper
-        });
+        this.setState({ amount, mine, listLength });
     }
 
     handleAmountChange(e){
         const { currency } = this.state.amount;
         const t = e.target;
-        const value = NumUtil.removeComma(t.value.replace(currency, ''))
+        const value = NumUtil.removeComma(t.value.replace(currency, ''));
         this.setState({
             [t.name]: value
-        })
+        });
+    }
+
+    setWidth(){
+        const { accountIndex } = this.state;
+        const width = sendContent.getWidth(this.state.listLength);
+        this.setState({
+            listWidth: width.list,
+            wrapperWidth: width.wrapper,
+            accountMove: width.list * accountIndex * -1
+        });
+    }
+
+    setAccontIndex(accountIndex){
+        this.setState({ accountIndex });
+    }
+
+
+    move(accountMove){
+        this.setState({
+            accountMove
+        });
+    }
+
+    send(){
+        const { mine, tossAmount, accountIndex } = this.state;
+        const account = mine.accounts[accountIndex];
+        const payload = {
+            userId: mine.id,
+            amount: tossAmount,
+            account: {
+                id: account.corporation.id,
+                fee: account.fee,
+            }
+        };
+        console.log('Payload: ', payload);
     }
 
     render(){
-        const { amount, mine, listWidth, wrapperWidth, tossAmount, accountMsg } = this.state;
+        const {
+            amount, mine, tossAmount,
+            accountMove, accountIndex, listWidth, wrapperWidth,
+        } = this.state;
 
         return (
             <Content>
@@ -81,10 +114,19 @@ class SendContent extends React.Component{
                 />
                 <Accounts
                     mine={mine}
+                    accountMove={accountMove}
+                    accountIndex={accountIndex}
                     wrapperWidth={wrapperWidth}
                     listWidth={listWidth}
+                    move={this.move}
+                    setAccontIndex={this.setAccontIndex}
                 />
-                <ButtonSend accountMsg={accountMsg} />
+                <ButtonSend
+                    mine={mine}
+                    tossAmount={tossAmount}
+                    accountIndex={accountIndex}
+                    send={this.send}
+                />
             </Content>
         );
     }

@@ -16,35 +16,54 @@
     "accounts": [
       {
         "corporation": {
-          "id": "kb",
-          "name": "KB국민은행"
+          "id": "toss",
+          "name": "Toss 주계좌",
+          "shortName": ""
         },
-        "account": "46480000084347",
+        "account": "",
+        "deposit": {
+          "amount": 0,
+          "currency": "원"
+        },
+        "validate": {
+          "isValid": false,
+          "msg": "토스 계좌를 채우고,무료로 송금하세요"
+        },
+        "fee": 0
+      },
+      {
+        "corporation": {
+          "id": "woori",
+          "name": "우리은행",
+          "shortName": "우리"
+        },
+        "account": "123400000567",
+        "deposit": {
+          "amount": 141000,
+          "currency": "원"
+        },
+        "validate": {
+          "isValid": false,
+          "msg": "무료송금 <b>4회 남음</b> (월 5회)"
+        },
+        "fee": 500
+      },
+      {
+        "corporation": {
+          "id": "kb",
+          "name": "KB국민은행",
+          "shortName": "KB국민"
+        },
+        "account": "464800084347",
         "deposit": {
           "amount": 87084,
           "currency": "원"
         },
         "validate": {
           "isValid": true,
-          "msg": "무료송금 4회 남음(월 5회)"
+          "msg": "무료송금 <b>4회 남음</b> (월 5회)"
         },
         "fee" : 500
-      },
-      {
-        "corporation": {
-          "id": "toss",
-          "name": "Toss 주계좌"
-        },
-        "account": "",
-        "deposit": {
-          "amount": 141000,
-          "currency": "원"
-        },
-        "validate": {
-          "isValid": true,
-          "msg": "토스 계좌를 채우고,무료로 송금하세요"
-        },
-        "fee": 0
       }
     ]
 
