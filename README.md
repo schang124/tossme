@@ -8,7 +8,16 @@ React-router 를 사용하여
 
 의 주소를 각각 할당했습니다.
 
+### 사용된 라이브러리
+- hammerJS
+- react-router
+- styled-components
+
+
 ### 프로젝트 테스트 방법
+
+weppack dev server 를 실행하여 테스트 가능합니다.
+
 1. git 에서 프로젝트 import
 2. `yarn install`
 3. `yarn start`
