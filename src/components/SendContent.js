@@ -92,6 +92,7 @@ class SendContent extends React.Component{
         const payload = {
             userId: mine.id,
             amount: tossAmount,
+            currency: account.deposit.currency,
             account: {
                 id: account.corporation.id,
                 account: account.account,
