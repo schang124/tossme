@@ -18,7 +18,7 @@ class Transfer extends Component{
                 top: '0',
                 opacity: '1',
             });
-        }, 400)
+        }, 0);
     }
 
     componentWillUnmount(){

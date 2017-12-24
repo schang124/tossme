@@ -56,9 +56,10 @@ class SendContent extends React.Component{
     }
 
     handleAmountChange(e){
-        const { currency } = this.state.amount;
+        const { currency, limit } = this.state.amount;
         const t = e.target;
-        const value = NumUtil.removeComma(t.value.replace(currency, ''));
+        const input = NumUtil.removeComma(t.value.replace(currency, ''));
+        const value = input > limit.remain ? limit.remain  : input;
         this.setState({
             [t.name]: value
         });
@@ -93,6 +94,7 @@ class SendContent extends React.Component{
             amount: tossAmount,
             account: {
                 id: account.corporation.id,
+                account: account.account,
                 fee: account.fee,
             }
         };

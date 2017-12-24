@@ -6,6 +6,7 @@ function ButtonTransfer({ mine, tossAmount, accountIndex, send, history }){
     const account = mine.accounts[accountIndex];
     if(!account) return null;
     const valid = account.deposit.amount > 0 && tossAmount > 0;
+    const msg = account.validate && account.deposit.amount > 0 ? account.validate.true : account.validate.false;
 
     function handleClick(){
         send();
@@ -15,7 +16,7 @@ function ButtonTransfer({ mine, tossAmount, accountIndex, send, history }){
     return (
         <ButtonContainer>
             <ButtonWrapper>
-                <Message dangerouslySetInnerHTML={{ __html: account.validate.msg }}></Message>
+                <Message dangerouslySetInnerHTML={{ __html: msg }}></Message>
                 <ButtonToss valid={valid} onClick={handleClick} disabled={!valid}>보내기</ButtonToss>
             </ButtonWrapper>
         </ButtonContainer>
@@ -25,7 +26,7 @@ function ButtonTransfer({ mine, tossAmount, accountIndex, send, history }){
 export default withRouter(ButtonTransfer)
 
 // ButtonSend
-const messageHeight = '25px';
+const messageHeight = '26px';
 const buttonSendHeight = '50px';
 
 const ButtonContainer = styled.div`
@@ -44,7 +45,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const Message = styled.span.attrs({
-    className: 'w300'
+    className: 'w250'
 })`
     display: inline-block;
     margin-bottom: 13px;
@@ -57,7 +58,7 @@ const Message = styled.span.attrs({
     transition: all 0.5s ease-in-out;
     
     b{
-        font-weight: 500;
+        font-weight: 400;
         color: #5fcbd7;
     }
 `;

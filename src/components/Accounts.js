@@ -29,7 +29,7 @@ function Accounts({ mine, accountIndex, accountMove, wrapperWidth, listWidth, mo
 
     const indicators = mine.accounts.map((ai, i)=> {
         const active = accountIndex === i;
-        return <IndicatorList key={`indi-${i}`}active={active} />;
+        return <IndicatorList key={`indi-${i}`} active={active} />;
     });
 
     function handlePan(e){
@@ -37,7 +37,7 @@ function Accounts({ mine, accountIndex, accountMove, wrapperWidth, listWidth, mo
         moved = parseInt(distance, 10);
 
         if(moved < listWidth){
-            move(deltaX);
+            move(position + deltaX);
         }
     }
 
@@ -106,12 +106,12 @@ const AccountContainer = styled.div`
 `;
 
 const AccountWrapper = styled.ul.attrs({
-    style: ({ left }) => ({ left }),
+    style: ({left}) => ({transform: `translateX(${left ? left : 0}px)` })
 })`
     position: relative;
     padding: 0 ${accountPadding};
     width: ${props => props.w ? `${props.w}px` : '100%'};
-    transition: left 0.6s ease-in-out;
+    transition: transform 0.2s linear;
 `;
 
 const AccountList = styled.li`

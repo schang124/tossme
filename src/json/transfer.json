@@ -22,12 +22,12 @@
         },
         "account": "",
         "deposit": {
-          "amount": 0,
+          "amount": 1500000,
           "currency": "원"
         },
         "validate": {
-          "isValid": false,
-          "msg": "토스 계좌를 채우고,무료로 송금하세요"
+          "true": "Toss 계좌 / <b>수수료 무료</b>",
+          "false": "토스 계좌를 채우고,무료로 송금하세요"
         },
         "fee": 0
       },
@@ -43,10 +43,10 @@
           "currency": "원"
         },
         "validate": {
-          "isValid": false,
-          "msg": "무료송금 <b>4회 남음</b> (월 5회)"
+          "true": "무료송금 <b>4회 남음</b> (월 5회)",
+          "false": "토스 계좌를 채우고, 무료로 송금하세요"
         },
-        "fee": 500
+        "fee": 0
       },
       {
         "corporation": {
@@ -56,12 +56,12 @@
         },
         "account": "464800084347",
         "deposit": {
-          "amount": 87084,
+          "amount": 0,
           "currency": "원"
         },
         "validate": {
-          "isValid": true,
-          "msg": "무료송금 <b>4회 남음</b> (월 5회)"
+          "true": "무료송금 <b>4회 남음</b> (월 5회)",
+          "false": "토스 계좌를 채우고, 무료로 송금하세요"
         },
         "fee" : 500
       }
