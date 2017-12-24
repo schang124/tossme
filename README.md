@@ -1,4 +1,11 @@
 ## 토스 송금 Front End 웹 구현
+토스 송금 경험을 조금 더 구현해 보고자 송금 이전의 홈 을 구현했습니다.
+React-router 를 사용하여 
+* '/' 토스 홈
+* '/transfer' 송금 페이지
+의 주소를 각각 할당했습니다.
+
+### 프로젝트 테스트 방법
 1. git 에서 프로젝트 import
 2. `yarn install`
 3. `yarn start`
