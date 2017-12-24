@@ -1,5 +1,6 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 function ButtonTransfer({ mine, tossAmount, accountIndex, send, history }){
@@ -24,6 +25,13 @@ function ButtonTransfer({ mine, tossAmount, accountIndex, send, history }){
 }
 
 export default withRouter(ButtonTransfer)
+
+ButtonTransfer.propTypes = {
+    mine: PropTypes.object,
+    tossAmount: PropTypes.number,
+    accountIndex: PropTypes.number,
+    send: PropTypes.func,
+};
 
 // ButtonSend
 const messageHeight = '26px';

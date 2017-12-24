@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { Wrapper, Title} from '../styles/sendContent';
 import NumUtil from '../utils/num';
 
@@ -30,6 +32,15 @@ function Amount({ amount, tossAmount, handleAmountChange }){
 
 export default Amount
 
+// prop types
+Amount.propTypes = {
+    amount: PropTypes.object,
+    tossAmount: PropTypes.number,
+    handleAmountChange: PropTypes.func,
+};
+
+
+// styles
 const inputHeight = '32px';
 
 const TossAmount = styled.div`

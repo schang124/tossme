@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Hammer from 'rc-hammerjs';
 
@@ -92,6 +93,18 @@ function Accounts({ mine, accountIndex, accountMove, wrapperWidth, listWidth, mo
 
 export default Accounts
 
+// prop types
+Accounts.propTypes = {
+    mine: PropTypes.object,
+    accountIndex: PropTypes.number,
+    accountMove: PropTypes.number,
+    wrapperWidth: PropTypes.number,
+    listWidth: PropTypes.number,
+    move: PropTypes.func,
+    setAccontIndex: PropTypes.func,
+};
+
+// styles
 // Account
 const accountHeight = '72px';
 const accountPadding = '22px';

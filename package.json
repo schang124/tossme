@@ -50,7 +50,8 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
-    "history": "^4.7.2"
+    "history": "^4.7.2",
+    "prop-types": "^15.6.0"
   },
   "scripts": {
     "start": "node scripts/start.js",

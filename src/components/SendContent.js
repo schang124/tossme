@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import sendContent from '../modules/sendContent';
 
-import { Amount, Accounts, ButtonSend } from '../components';
+import { Amount, Accounts, ButtonTransfer } from '../components';
 import NumUtil from '../utils/num';
 import transfer from '../json/transfer.json';
 
@@ -14,8 +14,8 @@ class SendContent extends React.Component{
             mine: {
                 accounts: [],
             },
-            listWidth: '300px',
-            wrapperWidth: '300px',
+            listWidth: 300,
+            wrapperWidth: 300,
             listLength: 0,
             accountMove: 0,
             accountIndex: 0,
@@ -124,7 +124,7 @@ class SendContent extends React.Component{
                     move={this.move}
                     setAccontIndex={this.setAccontIndex}
                 />
-                <ButtonSend
+                <ButtonTransfer
                     mine={mine}
                     tossAmount={tossAmount}
                     accountIndex={accountIndex}

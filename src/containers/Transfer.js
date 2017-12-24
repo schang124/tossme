@@ -38,6 +38,7 @@ class Transfer extends Component{
 
 export default Transfer;
 
+// styles
 const TossTransfer = styled.div`
     position: relative;
     margin-right: auto;
