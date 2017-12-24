@@ -54,6 +54,7 @@ const InputBox = styled.div`
 
 const Input = styled.input.attrs({
     className: 'w300',
+    pattern: '[0-9]*'
 })`
     width: 100%;
     height: ${inputHeight};
