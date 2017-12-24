@@ -17,7 +17,7 @@ React-router 를 사용하여
 ### 프로젝트 테스트 방법
 weppack dev server 를 실행하여 테스트 가능합니다.
 
-1. git 에서 프로젝트 import
+1. git 에서 프로젝트 import (https://github.com/schang124/tossme.git)
 2. `yarn install`
 3. `yarn start`
 4. http://localhost:3030 접속 
